@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->foreignid('todo_list_id');
             $table->integer('sort');
+            $table->boolean('is_completed')->default(false);
 
         });
     }

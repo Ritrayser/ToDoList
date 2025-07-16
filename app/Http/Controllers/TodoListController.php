@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\StoreListRequest;
+use App\Http\Requests\UpdateListRequest;
+use App\Models\TodoList;
+
+
 class TodoListController extends Controller
 {
     /**
@@ -11,7 +16,8 @@ class TodoListController extends Controller
      */
     public function index()
     {
-        //
+         $todoList = TodoList::all();
+        return response()->json($todoList, 200);
     }
 
     /**
@@ -25,9 +31,10 @@ class TodoListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreListRequest $request)
     {
-        //
+        $todoList = TodoItem::create($request->validated());
+    return response()->json($todoList, 201);
     }
 
     /**
@@ -49,9 +56,11 @@ class TodoListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateListRequest $request, string $id)
     {
-        //
+        $todoList = TodoList::findOrFail($id);
+        $todoList->update($request->validated());
+        return response()->json($todoList, 200);
     }
 
     /**
@@ -59,6 +68,26 @@ class TodoListController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $todoList = TodoList::findOrFail($id);
+        $todoList->delete();
+        return response()->json(null, 204);
+    }
+
+    public function completed (int $id)
+    {
+        $todoList = TodoList::findOrFail($id);
+        $todoList -> is_completed = true;
+        $todoList -> save();
+        return response()->json($todoList, 200);
+
+    }
+
+    public function uncompleted (int $id)
+    {
+        $todoList = TodoList::findOrFail($id);
+        $todoList -> is_completed = false;
+        $todoList -> save();
+        return response()->json($todoList, 200);
+
     }
 }

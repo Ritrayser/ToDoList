@@ -11,7 +11,7 @@ class UpdateTodoListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,11 @@ class UpdateTodoListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'string|max:255',
             'description' => 'string|max:255',
             'sort' => 'integer',
             'todo_list_id' => 'integer',
+            'is_completed' => 'integer',
         ];
     }
 }

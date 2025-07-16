@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTodoListRequest;
+use App\Http\Requests\UpdateTodoListRequest;
 use App\Models\TodoItem;
 
 class TodoItemController extends Controller
@@ -13,12 +14,8 @@ class TodoItemController extends Controller
      */
     public function index()
     {
-        return response()->json(
-             [
-    "name" => "John",
-    "age" => 25,
-    "city" => "New York"
-             ]);
+        $todoItem = TodoItem::all();
+        return response()->json($todoItem, 200);
     }
 
     /**
@@ -57,9 +54,12 @@ class TodoItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTodoListRequest $request, string $id)
     {
-        $todoItem = TodoItem::request($id);
+        
+        $todoItem = TodoItem::findOrFail($id);
+        $todoItem->update($request->validated());
+        return response()->json($todoItem, 200);
         
     }
 
@@ -71,5 +71,23 @@ class TodoItemController extends Controller
         $todoItem = TodoItem::findOrFail($id);
         $todoItem->delete();
         return response()->json(null, 204);
+    }
+
+    public function completed (int $id)
+    {
+        $todoItem = TodoItem::findOrFail($id);
+        $todoItem -> is_completed = true;
+        $todoItem -> save();
+        return response()->json($todoItem, 200);
+
+    }
+
+    public function uncompleted (int $id)
+    {
+        $todoItem = TodoItem::findOrFail($id);
+        $todoItem -> is_completed = false;
+        $todoItem -> save();
+        return response()->json($todoItem, 200);
+
     }
 }

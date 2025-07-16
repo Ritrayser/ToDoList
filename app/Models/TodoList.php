@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class TodoList extends Model
 {
+
+    protected $fillable = [
+        'title',
+        'user_id',
+        'is_completed',
+
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);

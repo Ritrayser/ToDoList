@@ -11,6 +11,7 @@ class TodoItem extends Model
         'sort',
         'description',
         'todo_list_id',
+        'is_completed',
 
     ];
       public function todoList()

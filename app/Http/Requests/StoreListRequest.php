@@ -24,6 +24,7 @@ class StoreListRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'user_id' => 'integer',
+            'is_completed' => 'integer',
         ];
     }
 }

@@ -26,6 +26,7 @@ class StoreTodoListRequest extends FormRequest
             'description' => 'string|max:255',
             'sort' => 'integer',
             'todo_list_id' => 'integer',
+            'is_completed' => 'integer',
         ];
     }
 }
