@@ -33,7 +33,7 @@ class TodoListController extends Controller
      */
     public function store(StoreListRequest $request)
     {
-        $todoList = TodoItem::create($request->validated());
+        $todoList = TodoList::create($request->validated());
     return response()->json($todoList, 201);
     }
 
@@ -42,7 +42,10 @@ class TodoListController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $todoList = TodoList::findOrFail($id);
+        return responce()->json($todoList, 200);
+      
+     
     }
 
     /**

@@ -40,7 +40,8 @@ class TodoItemController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $todoItem = TodoItem::findOrFail($id);
+        return responce()->json($todoItem, 200);
     }
 
     /**
