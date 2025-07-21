@@ -11,7 +11,7 @@ class StoreListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,6 @@ class StoreListRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'user_id' => 'integer',
             'is_completed' => 'integer',
         ];
     }

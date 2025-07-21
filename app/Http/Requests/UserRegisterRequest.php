@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTodoListRequest extends FormRequest
+class UserRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,11 +22,9 @@ class UpdateTodoListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|max:255',
-            'description' => 'string|max:255',
-            'sort' => 'integer',
-            'todo_list_id' => 'integer',
-            'is_completed' => 'integer',
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8',
         ];
     }
 }
